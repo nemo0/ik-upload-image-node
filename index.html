@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Image Upload</title>
+</head>
+
+<body>
+    <h2>Upload Image</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div>
+            <label for="file">Choose an image file (JPEG or PNG):</label>
+            <input type="file" id="file" name="file" accept="image/png, image/jpeg" required>
+        </div>
+        <div>
+            <button type="submit">Upload Image</button>
+        </div>
+    </form>
+
+    <div id="uploadResult"></div>
+    <div id="imageContainer"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const fileField = document.querySelector('input[type="file"]');
+
+            formData.append('file', fileField.files[0]);
+
+            try {
+                const response = await fetch('http://localhost:5000/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    document.getElementById('uploadResult').innerText = 'Success! Image uploaded.';
+
+                    // Display the image
+                    const imgContainer = document.getElementById('imageContainer');
+                    imgContainer.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = result.url;
+                    img.alt = 'Uploaded Image';
+                    img.style.maxWidth = '60%';
+                    imgContainer.appendChild(img);
+                } else {
+                    document.getElementById('uploadResult').innerText = 'Error: ' + result.message;
+                    document.getElementById('imageContainer').innerHTML = '';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('uploadResult').innerText = 'An error occurred while uploading the file.';
+                document.getElementById('imageContainer').innerHTML = '';
+            }
+        });
+    </script>
+</body>
+
+</html>
