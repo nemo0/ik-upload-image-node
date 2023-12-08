@@ -3,6 +3,66 @@
 
 <head>
     <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: auto;
+            padding: 20px;
+            color: #333;
+            max-width: 600px;
+        }
+
+        h2 {
+            color: #444;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            border: 1px solid #ddd;
+            padding: 8px;
+            border-radius: 4px;
+            display: block;
+            width: 95%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #uploadResult {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #imageContainer img {
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <body>
@@ -46,7 +106,7 @@
                     const img = document.createElement('img');
                     img.src = result.url;
                     img.alt = 'Uploaded Image';
-                    img.style.maxWidth = '60%';
+                    img.style.maxWidth = '100%';
                     imgContainer.appendChild(img);
                 } else {
                     document.getElementById('uploadResult').innerText = 'Error: ' + result.message;
